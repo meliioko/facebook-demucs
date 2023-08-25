@@ -1,7 +1,7 @@
 from pydub import AudioSegment
 
 
-def merge(dir, name):
+def merge(dir, name, offset):
     # Load the individual tracks
     vocals = AudioSegment.from_file(dir + "vocals.mp3")
     other = AudioSegment.from_file(dir + "other.mp3")
@@ -14,12 +14,15 @@ def merge(dir, name):
     drums = drums[:min_length]
     bass = bass[:min_length]
     other = other[:min_length]
-        
-    vocals = vocals + 10
+
+    vocals = vocals + int(offset)
     # Combine the tracks
     combined = vocals.overlay(drums).overlay(bass).overlay(other)
 
     # Export the combined track
     combined.export(name, format="mp3")
 
-merge('output/htdemucs/renaud/', 'renaud.mp3')
+
+if __name__ == '__main__':
+    import sys
+    merge(sys.argv[1], sys.argv[2], sys.argv[3])
