@@ -1,4 +1,5 @@
 input/*
+finals/*
 models/*
 output/*
 !input/.gitkeep
